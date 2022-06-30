@@ -20,12 +20,20 @@ ticker = st.selectbox(
 
 tickerData = yf.Ticker(ticker)
 
-jumlah_hari = timedelta(days=-30)
+hari_mundur = st.selectbox(
+    "Pilihan rentang hari",
+    options = [7, 20, 30, 120]
+)
+    
+jumlah_hari = timedelta(days=-int(hari_mundur))
 
+'''
 tgl_mulai = st.date_input(
     "Mulai dari tanggal",
     value=date.today()+jumlah_hari
 )
+'''
+tgl_mulai = date.today() + jumlah_hari
 
 tgl_akhir = st.date_input(
     "Hingga",
