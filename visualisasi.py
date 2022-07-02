@@ -8,9 +8,9 @@ from dateutil.relativedelta import relativedelta
 
 st.write("""
 # Aplikasi Yahoo Finance
-## Data saham Google
+## Data saham
 
-Berikut ini adalah data Closing Price dan Volume dari Google.
+Berikut ini adalah data Closing Price, Volume, dan Highest Price
 """)
 
 ticker = st.selectbox(
@@ -24,7 +24,7 @@ hari_mundur = st.selectbox(
     "Pilihan rentang hari",
     options = [7, 20, 30, 120]
 )
-    
+
 jumlah_hari = timedelta(days=-int(hari_mundur))
 
 '''
@@ -58,6 +58,9 @@ elif ticker == 'GOOG':
 elif ticker == 'AMZN':
     nama_perusahaan = "Amazon"
 
+st.markdown(f"Lima data pertama:")
+st.write(tickerDF[ ["Close", "Volume", "High"] ].head())
+
 # f-string
 st.markdown(f"Harga penutupan **{nama_perusahaan}**")
 st.plotly_chart(
@@ -72,3 +75,4 @@ st.line_chart(tickerDF.Volume)
 st.markdown(f"Harga tertinggi **{nama_perusahaan}**")
 st.plotly_chart( px.line(tickerDF.High) )
 st.line_chart(tickerDF.High)
+
