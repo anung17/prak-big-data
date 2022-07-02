@@ -62,17 +62,17 @@ st.markdown(f"Lima data pertama:")
 st.write(tickerDF[ ["Close", "Volume", "High"] ].head())
 
 # f-string
-st.markdown(f"Harga penutupan **{nama_perusahaan}**")
+st.markdown(f"## Harga penutupan *{nama_perusahaan}*")
 st.plotly_chart(
     px.line(tickerDF.Close)
 )
-st.line_chart(tickerDF.Close)
+#st.line_chart(tickerDF.Close)
 
-st.markdown(f"Volume transaksi saham **{nama_perusahaan}**")
+st.markdown(f"## Volume transaksi saham *{nama_perusahaan}*")
 st.plotly_chart( px.line(tickerDF.Volume) )
-st.line_chart(tickerDF.Volume)
+#st.line_chart(tickerDF.Volume)
 
-st.markdown(f"Harga tertinggi **{nama_perusahaan}**")
+st.markdown(f"## Harga tertinggi *{nama_perusahaan}*")
 st.plotly_chart( px.line(tickerDF.High) )
-st.line_chart(tickerDF.High)
+#st.line_chart(tickerDF.High)
 
