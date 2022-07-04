@@ -15,24 +15,20 @@ Berikut ini adalah data Closing Price, Volume, dan Highest Price
 
 ticker = st.selectbox(
     "Ticker Perusahaan",
-    options = ["ANTM", "AAPL", "MSFT", "GOOG", "AMZN"]
+    options = ["ANTM", "BMRI", "BBNI", "PNBN", "ISAT",
+               "JSMR", "LPGI", "FREN", "TLKM", "EXCL"
+              ]
 )
 
 tickerData = yf.Ticker(ticker)
 
 hari_mundur = st.selectbox(
     "Pilihan rentang hari",
-    options = [7, 20, 30, 120]
+    options = [7, 10, 20, 30, 60, 120, 365]
 )
 
 jumlah_hari = timedelta(days=-int(hari_mundur))
 
-# '''
-# tgl_mulai = st.date_input(
-    # "Mulai dari tanggal",
-    # value=date.today()+jumlah_hari
-# )
-# '''
 tgl_mulai = date.today() + jumlah_hari
 
 tgl_akhir = st.date_input(
@@ -52,20 +48,26 @@ attributes = st.multiselect(
     default=['Volume']
 )
 
-st.markdown(f"### Attributes yang dipilih")
-for attr in attributes:
-    st.write(attr)
-
 if ticker == 'ANTM':
-    nama_perusahaan = "Aneka Tambang"
-elif ticker == 'AAPL':
-    nama_perusahaan = "Apple"
-elif ticker == 'MSFT':
-    nama_perusahaan = "Microsoft"
-elif ticker == 'GOOG':
-    nama_perusahaan = "Google"
-elif ticker == 'AMZN':
-    nama_perusahaan = "Amazon"
+    nama_perusahaan = "PT Aneka Tambang Tbk"
+elif ticker == 'BMRI':
+    nama_perusahaan = "PT Bank Mandiri (Persero) Tbk"
+elif ticker == 'BBNI':
+    nama_perusahaan = "PT Bank Negara Indonesia (Persero) Tbk"
+elif ticker == 'PNBN':
+    nama_perusahaan = "PT Bank Pan Indonesia Tbk"
+elif ticker == 'ISAT':
+    nama_perusahaan = "PT Indosat Tbk"
+elif ticker == 'JSMR':
+    nama_perusahaan = "PT Jasa Marga (Persero) Tbk"
+elif ticker == 'LPGI':
+    nama_perusahaan = "PT Lippo General Insurance Tbk"
+elif ticker == 'FREN':
+    nama_perusahaan = "PT Smartfren Telecom Tbk"
+elif ticker == 'TLKM':
+    nama_perusahaan = "PT Telekomunikasi Indonesia Tbk"
+elif ticker == 'EXCL':
+    nama_perusahaan = "PT XL Axiata Tbk"
 
 st.markdown(f"Lima data pertama:")
 st.write(tickerDF.head())
