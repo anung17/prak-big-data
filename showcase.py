@@ -9,14 +9,12 @@ from dateutil.relativedelta import relativedelta
 st.write("""
 # Aplikasi Yahoo Finance
 ## Data saham
-
-Berikut ini adalah data Closing Price, Volume, dan Highest Price
 """)
 
 ticker = st.selectbox(
     "Ticker Perusahaan",
-    options = ["ANTM", "BMRI", "BBNI", "PNBN", "ISAT",
-               "JSMR", "LPGI", "FREN", "TLKM", "EXCL"
+    options = ["ANTM.JK", "BMRI.JK", "BBNI.JK", "PNBN.JK", "ISAT.JK",
+               "JSMR.JK", "LPGI.JK", "FREN.JK", "TLKM.JK", "EXCL.JK"
               ]
 )
 
@@ -48,25 +46,25 @@ attributes = st.multiselect(
     default=['Volume']
 )
 
-if ticker == 'ANTM':
+if ticker == 'ANTM.JK':
     nama_perusahaan = "PT Aneka Tambang Tbk"
-elif ticker == 'BMRI':
+elif ticker == 'BMRI.JK':
     nama_perusahaan = "PT Bank Mandiri (Persero) Tbk"
-elif ticker == 'BBNI':
+elif ticker == 'BBNI.JK':
     nama_perusahaan = "PT Bank Negara Indonesia (Persero) Tbk"
-elif ticker == 'PNBN':
+elif ticker == 'PNBN.JK':
     nama_perusahaan = "PT Bank Pan Indonesia Tbk"
-elif ticker == 'ISAT':
+elif ticker == 'ISAT.JK':
     nama_perusahaan = "PT Indosat Tbk"
-elif ticker == 'JSMR':
+elif ticker == 'JSMR.JK':
     nama_perusahaan = "PT Jasa Marga (Persero) Tbk"
-elif ticker == 'LPGI':
+elif ticker == 'LPGI.JK':
     nama_perusahaan = "PT Lippo General Insurance Tbk"
-elif ticker == 'FREN':
+elif ticker == 'FREN.JK':
     nama_perusahaan = "PT Smartfren Telecom Tbk"
-elif ticker == 'TLKM':
+elif ticker == 'TLKM.JK':
     nama_perusahaan = "PT Telekomunikasi Indonesia Tbk"
-elif ticker == 'EXCL':
+elif ticker == 'EXCL.JK':
     nama_perusahaan = "PT XL Axiata Tbk"
 
 st.markdown(f"Lima data pertama:")
