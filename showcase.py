@@ -6,23 +6,53 @@ from datetime import date, timedelta
 from dateutil.relativedelta import relativedelta
 
 
+# https://towardsdatascience.com/how-to-get-stock-data-using-python-c0de1df17e75
+# define the ticker symbol in a dictionary, with its corresponding full name
+ticker_dict = {
+    'ANTM.JK': "PT Aneka Tambang Tbk",
+    'BMRI.JK': "PT Bank Mandiri (Persero) Tbk",
+    'BBNI.JK': "PT Bank Negara Indonesia (Persero) Tbk",
+    'PNBN.JK': "PT Bank Pan Indonesia Tbk",
+    'ISAT.JK': "PT Indosat Tbk",
+    'JSMR.JK': "PT Jasa Marga (Persero) Tbk",
+    'LPGI.JK': "PT Lippo General Insurance Tbk",
+    'FREN.JK': "PT Smartfren Telecom Tbk",
+    'TLKM.JK': "PT Telekomunikasi Indonesia Tbk",
+    'EXCL.JK': "PT XL Axiata Tbk",
+    'GOOGL': "Google",
+    'MSFT': "Microsoft",
+    'AAPL': "Apple"
+}
+
 st.write("""
 # Aplikasi Yahoo Finance
-## Data saham
+
+## Data Saham Beberapa Perusahaan
+
 """)
+
+tickerSymbols = sorted(ticker_dict.keys())
 
 ticker = st.selectbox(
     "Ticker Perusahaan",
-    options = ["ANTM.JK", "BMRI.JK", "BBNI.JK", "PNBN.JK", "ISAT.JK",
-               "JSMR.JK", "LPGI.JK", "FREN.JK", "TLKM.JK", "EXCL.JK"
-              ]
+    options = tickerSymbols
 )
+
+st.write(f'Ticker perusahaan: **{ticker_dict[ticker]}**')
 
 tickerData = yf.Ticker(ticker)
 
+#st.line_chart( px.line(tickerDf.Close) )
+#st.line_chart( px.line(tickerDf.Volume) )
+
+#st.plotly_chart( px.line(tickerDf.Close) )
+
+# end of myapp.py
+
+
 hari_mundur = st.selectbox(
     "Pilihan rentang hari",
-    options = [7, 10, 20, 30, 60, 120, 365]
+    options = [7, 10, 20, 30, 60, 90, 365]
 )
 
 jumlah_hari = timedelta(days=-int(hari_mundur))
@@ -43,53 +73,22 @@ tickerDF = tickerData.history(
 attributes = st.multiselect(
     "Informasi yang ditampilkan:",
     options=['Open', 'High', 'Low', 'Close', 'Volume'],
-    default=['Volume']
+    default=['Volume', 'Open']
 )
 
-if ticker == 'ANTM.JK':
-    nama_perusahaan = "PT Aneka Tambang Tbk"
-elif ticker == 'BMRI.JK':
-    nama_perusahaan = "PT Bank Mandiri (Persero) Tbk"
-elif ticker == 'BBNI.JK':
-    nama_perusahaan = "PT Bank Negara Indonesia (Persero) Tbk"
-elif ticker == 'PNBN.JK':
-    nama_perusahaan = "PT Bank Pan Indonesia Tbk"
-elif ticker == 'ISAT.JK':
-    nama_perusahaan = "PT Indosat Tbk"
-elif ticker == 'JSMR.JK':
-    nama_perusahaan = "PT Jasa Marga (Persero) Tbk"
-elif ticker == 'LPGI.JK':
-    nama_perusahaan = "PT Lippo General Insurance Tbk"
-elif ticker == 'FREN.JK':
-    nama_perusahaan = "PT Smartfren Telecom Tbk"
-elif ticker == 'TLKM.JK':
-    nama_perusahaan = "PT Telekomunikasi Indonesia Tbk"
-elif ticker == 'EXCL.JK':
-    nama_perusahaan = "PT XL Axiata Tbk"
+st.write(attributes)
+st.write(type(attributes))
 
 st.markdown(f"Lima data pertama:")
 st.write(tickerDF.head())
 
-# f-string
-if 'Open' in attributes:
-    st.markdown(f"## Harga pembukaan *{nama_perusahaan}*")
-    st.plotly_chart( px.line(tickerDF.Open))
+#st.plotly_chart( px.line(tickerDF.Open) )
+#st.plotly_chart( px.line(tickerDF["High"]) )
 
-if 'Close' in attributes:
-    st.markdown(f"## Harga penutupan *{nama_perusahaan}*")
-    st.plotly_chart( px.line(tickerDF.Close))
-
-if 'Volume' in attributes:
-    st.markdown(f"## Volume transaksi saham *{nama_perusahaan}*")
-    st.plotly_chart( px.line(tickerDF.Volume) )
-    #st.line_chart(tickerDF.Volume)
-
-if 'High' in attributes:
-    st.markdown(f"## Harga tertinggi *{nama_perusahaan}*")
-    st.plotly_chart( px.line(tickerDF.High) )
-    #st.line_chart(tickerDF.High)
-
-if 'Low' in attributes:
-    st.markdown(f"## Harga terendah *{nama_perusahaan}*")
-    st.plotly_chart( px.line(tickerDF.Low))
-
+st.plotly_chart(
+    px.line(
+        tickerDF,
+        title=f'Harga Saham **{ticker_dict[ticker]}** ({ticker})',
+        y = attributes
+    )
+)
