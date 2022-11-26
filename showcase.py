@@ -21,7 +21,8 @@ ticker_dict = {
     'EXCL.JK': "PT XL Axiata Tbk",
     'GOOGL': "Google",
     'MSFT': "Microsoft",
-    'AAPL': "Apple"
+    'AAPL': "Apple",
+    'META': "Facebook Meta"
 }
 
 st.write("""
@@ -42,20 +43,12 @@ st.write(f'Ticker perusahaan: **{ticker_dict[ticker]}**')
 
 tickerData = yf.Ticker(ticker)
 
-#st.line_chart( px.line(tickerDf.Close) )
-#st.line_chart( px.line(tickerDf.Volume) )
-
-#st.plotly_chart( px.line(tickerDf.Close) )
-
-# end of myapp.py
-
-
 hari_mundur = st.selectbox(
     "Pilihan rentang hari",
     options = [7, 10, 20, 30, 60, 90, 365]
 )
 
-jumlah_hari = timedelta(days=-int(hari_mundur))
+jumlah_hari = timedelta(days = -int(hari_mundur))
 
 tgl_mulai = date.today() + jumlah_hari
 
@@ -73,11 +66,8 @@ tickerDF = tickerData.history(
 attributes = st.multiselect(
     "Informasi yang ditampilkan:",
     options=['Open', 'High', 'Low', 'Close', 'Volume'],
-    default=['Volume', 'Open']
+    default=['Open', 'Close']
 )
-
-st.write(attributes)
-st.write(type(attributes))
 
 st.markdown(f"Lima data pertama:")
 st.write(tickerDF.head())
@@ -85,10 +75,12 @@ st.write(tickerDF.head())
 #st.plotly_chart( px.line(tickerDF.Open) )
 #st.plotly_chart( px.line(tickerDF["High"]) )
 
+judul_chart = f'Harga Saham {ticker_dict[ticker]} ({ticker})'
+
 st.plotly_chart(
     px.line(
         tickerDF,
-        title=f'Harga Saham **{ticker_dict[ticker]}** ({ticker})',
+        title=judul_chart,
         y = attributes
     )
 )
