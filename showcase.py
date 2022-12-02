@@ -47,7 +47,7 @@ tickerData = yf.Ticker(ticker)
 
 hari_mundur = st.selectbox(
     "Pilihan rentang hari",
-    options = [7, 10, 20, 30, 60, 90, 365]
+    options = [7, 10, 20, 30, 60, 90, 180, 365]
 )
 
 jumlah_hari = timedelta(days = -int(hari_mundur))
