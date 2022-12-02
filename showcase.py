@@ -68,7 +68,7 @@ tickerDF = tickerData.history(
 attributes = st.multiselect(
     "Informasi yang ditampilkan:",
     options=['Open', 'High', 'Low', 'Close', 'Volume'],
-    default=['Open', 'Close']
+    default=['High', 'Low']
 )
 
 st.markdown(f"Lima data pertama:")
