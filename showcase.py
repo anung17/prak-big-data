@@ -22,7 +22,9 @@ ticker_dict = {
     'GOOGL': "Google",
     'MSFT': "Microsoft",
     'AAPL': "Apple",
-    'META': "Facebook Meta"
+    'META': "Facebook Meta",
+    'TSLA': "Tesla Inc",
+    'AMZN': "Amazon"
 }
 
 st.write("""
